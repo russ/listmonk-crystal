@@ -1,0 +1,14 @@
+name: listmonk
+version: 0.1.0
+
+authors:
+  - name <russ@bashme.org>
+
+description: |
+  Listmonk.app Crystal integration
+
+dependencies:
+  habitat:
+    github: luckyframework/habitat
+
+license: MIT

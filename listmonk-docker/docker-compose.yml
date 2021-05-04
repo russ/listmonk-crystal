@@ -1,0 +1,35 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres:11
+    ports:
+      - "9999:5432"
+    networks:
+      - listmonk
+    environment:
+      - POSTGRES_PASSWORD=listmonk
+      - POSTGRES_USER=listmonk
+      - POSTGRES_DB=listmonk
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: listmonk-data
+        target: /var/lib/postgresql/data
+
+  app:
+    restart: unless-stopped
+    image: listmonk/listmonk:dev17
+    ports:
+      - "9000:9000"
+    networks:
+      - listmonk
+    command: [sh, -c, "yes | ./listmonk --install --config config.toml && ./listmonk --config config.toml"]
+    depends_on:
+      - db
+
+networks:
+  listmonk:
+
+volumes:
+  listmonk-data:
