@@ -1,7 +1,7 @@
 module Listmonk
   module Endpoints
     module Subscribers
-      def all_subscribers(page : Int32 = 1, per_page : Int32 = 20, query : String? = nil, &block) : Listmonk::Types::PaginatedResponse(Array(Listmonk::Types::Subscriber))?
+      def all_subscribers(page : Int32 = 1, per_page : Int32 = 20, query : String? = nil, &block)
         params = {
           "page"     => page.to_s,
           "per_page" => per_page.to_s,
