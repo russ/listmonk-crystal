@@ -14,4 +14,4 @@ module Listmonk
   end
 end
 
-Habitat.raise_if_missing_settings!
+# Habitat.raise_if_missing_settings!
