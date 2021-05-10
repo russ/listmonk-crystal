@@ -1,6 +1,8 @@
 name: listmonk
 version: 0.1.0
 
+crystal: ">= 0.36.1"
+
 authors:
   - name <russ@bashme.org>
 
