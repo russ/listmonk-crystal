@@ -14,7 +14,11 @@ module Listmonk
       end
 
       def fetch_import_status : Listmonk::Types::ImportStatus?
-        fetch_import_status { }
+        fetch_import_status do |result|
+          if r = result
+            r
+          end
+        end
       end
 
       def import_subscribers(request : Listmonk::Types::ImportRequest, &block) : Listmonk::Types::ImportRequestResponse?
@@ -46,9 +50,19 @@ module Listmonk
           json_response = JSON.parse(response.body).as_h
 
           if data = json_response["data"]?
-            Listmonk::Types::ImportRequestResponse.from_json(data.to_json)
+            yield Listmonk::Types::ImportRequestResponse.from_json(data.to_json), nil
           elsif error = json_response["message"]?
-            raise Listmonk::Errors::ImportAlreadyRunning.new(error.as_s)
+            yield nil, error.as_s
+          end
+        end
+      end
+
+      def import_subscribers(request : Listmonk::Types::ImportRequest) : Listmonk::Types::ImportRequestResponse?
+        import_subscribers(request) do |response, error|
+          if error
+            raise Listmonk::Errors::ImportAlreadyRunning.new(error)
+          else
+            response
           end
         end
       end
