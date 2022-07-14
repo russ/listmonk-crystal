@@ -5,6 +5,8 @@ module Listmonk
   class Client
     property http_client : HTTP::Client
 
+    include Listmonk::Endpoints::Campaigns
+    include Listmonk::Endpoints::Import
     include Listmonk::Endpoints::Lists
     include Listmonk::Endpoints::Subscribers
 
@@ -41,7 +43,7 @@ module Listmonk
     end
 
     private def put_request(path, request = nil, headers : HTTP::Headers? = default_headers)
-      @http_client.put(path, headers: headers) do |response|
+      @http_client.put(path, headers: headers, body: request.to_json) do |response|
         process_response(response) do |results, errors|
           yield results, errors
         end

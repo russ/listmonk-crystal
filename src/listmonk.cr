@@ -4,6 +4,7 @@ require "uuid/json"
 require "habitat"
 require "./listmonk/*"
 require "./listmonk/types/*"
+require "./listmonk/errors/*"
 
 module Listmonk
   Habitat.create do

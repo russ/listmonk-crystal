@@ -4,8 +4,8 @@
 
 # Database.
 [db]
-    host = "demo-db"
-    port = 9999
+    host = "db"
+    port = 5432
     user = "listmonk"
     password = "listmonk"
     database = "listmonk"
